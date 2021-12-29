@@ -21,6 +21,7 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
     [Area("AdminFiorella")]
     public class ProductController : Controller
     {
+       
         private AppDbContext _context;
         private string _errorMessage;
         private LayoutServices _service { get; }
@@ -32,20 +33,24 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
             _env = env;
             _service = service;
         }
+      
         // GET: ProductController
-        public async Task<IActionResult> Index( int page=1,int take=10)
+        public async Task<IActionResult> Index( int page=1,int take=3)
         {
+            Dictionary<string, string> settings = _service.GetSetting();
+            int takeCount = Convert.ToInt32(settings["Product Take Count"]);
+            var setting = _context.Settings.AsEnumerable().ToDictionary(s => s.Key, s => s.Value);
             TempData["Take"] = take;
             var products = await _context.Products
                                     .Where(p=>p.IsDeleted==false)
-                                    .Skip((page - 1) * take)
-                                    .Take(take)
+                                    .Skip((page - 1) * takeCount)
+                                    .Take(takeCount)
                                     .OrderByDescending(p => p.Id)
                                    .Include(c => c.CategoryName)
                                    .Include(c => c.Images)
                                    .ToListAsync();
             var productsVM = getProductList(products);
-            int pageCount = getPageCount(take);
+            int pageCount = getPageCount(takeCount);
             Paginate<ProductListVM> model = new Paginate<ProductListVM>(productsVM,page, pageCount);
            // return Json(model);
             return View(model);
