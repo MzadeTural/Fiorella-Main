@@ -2,8 +2,8 @@
 @{
     ViewData["Title"] = "Index";
     int count = 0;
- 
-    int maxCount =Convert.ToInt32(@TempData["MaxCount"]);
+
+    int maxCount = Convert.ToInt32(@TempData["MaxCount"]);
 
 }
 
@@ -38,7 +38,7 @@
 
                                 <td>
                                     <form asp-action="Delete" method="post" class="d-inline">
-                                        <button id="complexConfirm" asp-action="Delete" asp-route-id="@sld.Id" type="submit" class="btn btn-danger me-2 " onclick="return confirm('Are you sure you want to delete this item?')"><i class="mdi mdi-trash-can"></i></button>
+                                        <button id="complexConfirm" asp-action="Delete" asp-route-id="@sld.Id" type="submit" class="btn btn-danger me-2 ")"><i class="mdi mdi-trash-can" onclick="return confirm('Are you sure you want to delete this item?')" ></i></button>
 
                                     </form>
                                     <form asp-action="Update" method="post" class="d-inline">
@@ -56,7 +56,7 @@
 
                     </tbody>
                 </table>
-               
+
 
                 @if (count < maxCount)
                 {
@@ -67,3 +67,54 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+    function deleteOrder(Id)
+{
+        debugger;
+        swal({
+                title: "Are you sure?",
+                text: "Are you sure that you want to delete this Order?",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "Yes, delete it!",
+                confirmButtonColor: "#ec6c62"
+            },
+            function()
+             {
+                $.ajax({
+                    url: '/AdminFiorella/Slider/Delete',
+                        data:
+                  {
+                            "SLiderID":Id 
+                        },
+                        type: "DELETE"
+                    })
+                    .done(function(data)
+                          {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                )
+                            }
+                        })
+                    })
+                    .error(function(data)
+                      {
+                        swal("Oops", "We couldn't connect to the server!", "error");
+                    });
+            });
+    }
+</script> 

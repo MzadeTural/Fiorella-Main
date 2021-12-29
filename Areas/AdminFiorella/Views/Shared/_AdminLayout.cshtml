@@ -10,8 +10,8 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- plugins:css -->
     <link rel="stylesheet" href="~/admin/vendors/feather/feather.css">
     <link rel="stylesheet" href="~/admin/vendors/mdi/css/materialdesignicons.min.css">
@@ -259,9 +259,9 @@
                         <a class="nav-link" asp-area="AdminFiorella" asp-controller="Setting" asp-action="Index">
                             <i class=" menu-icon mdi mdi-settings"></i>
                             <span class="menu-title">Setting  </span>
-                           
+
                         </a>
-                       
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
@@ -274,7 +274,7 @@
                                 <li class="nav-item"> <i class="menu-arrow"></i> <a class="nav-link" asp-area="AdminFiorella" asp-controller="Category" asp-action="Index">Category Table</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-area="AdminFiorella" asp-controller="Product" asp-action="Index">Prpduct Table</a></li>
                                 <li class="nav-item"> <a class="nav-link" asp-area="AdminFiorella" asp-controller="Slider" asp-action="Index">Sliders Table</a></li>
-                               
+
 
                             </ul>
                         </div>
@@ -326,11 +326,21 @@
         <!-- container-scroller -->
         <!-- plugins:js -->
         <script src="~/admin/vendors/js/vendor.bundle.base.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- endinject -->
         <!-- Plugin js for this page -->
         <script src="~/admin/vendors/chart.js/Chart.min.js"></script>
         <script src="~/admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="~/admin/vendors/progressbar.js/progressbar.min.js"></script>
+        <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+        <script src="~/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+
+        <script src="https://lipis.github.io/bootstrap-sweetalert/lib/sweet-alert.js"></script>
 
         <!-- End plugin js for this page -->
         <!-- inject:js -->

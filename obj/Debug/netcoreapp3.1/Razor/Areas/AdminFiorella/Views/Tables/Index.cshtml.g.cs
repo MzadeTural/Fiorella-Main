@@ -42,13 +42,20 @@ using Fiorella_second.ViewModel.Sliders;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\Tural\Desktop\Fiorella-Basket-main\Areas\AdminFiorella\Views\_ViewImports.cshtml"
+using Fiorella_second.ViewModel.Products;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\Tural\Desktop\Fiorella-Basket-main\Areas\AdminFiorella\Views\_ViewImports.cshtml"
 using Fiorella_second.Areas.AdminFiorella.ViewModel;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"57218c316b6921e2cd61027a2387edc31a2d9471", @"/Areas/AdminFiorella/Views/Tables/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1df1196bc36a1782202994b384731f59b4f5c2d2", @"/Areas/AdminFiorella/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5595a427add9e08cbb50b03cb0c6f66f667ea548", @"/Areas/AdminFiorella/Views/_ViewImports.cshtml")]
     public class Areas_AdminFiorella_Views_Tables_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

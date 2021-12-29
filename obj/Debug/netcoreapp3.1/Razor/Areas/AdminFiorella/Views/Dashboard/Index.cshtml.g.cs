@@ -42,13 +42,20 @@ using Fiorella_second.ViewModel.Sliders;
 #nullable disable
 #nullable restore
 #line 5 "C:\Users\Tural\Desktop\Fiorella-Basket-main\Areas\AdminFiorella\Views\_ViewImports.cshtml"
+using Fiorella_second.ViewModel.Products;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 6 "C:\Users\Tural\Desktop\Fiorella-Basket-main\Areas\AdminFiorella\Views\_ViewImports.cshtml"
 using Fiorella_second.Areas.AdminFiorella.ViewModel;
 
 #line default
 #line hidden
 #nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"53c8291d7d8587367d624cca641d993bc2dade59", @"/Areas/AdminFiorella/Views/Dashboard/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"1df1196bc36a1782202994b384731f59b4f5c2d2", @"/Areas/AdminFiorella/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"5595a427add9e08cbb50b03cb0c6f66f667ea548", @"/Areas/AdminFiorella/Views/_ViewImports.cshtml")]
     public class Areas_AdminFiorella_Views_Dashboard_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("src", new global::Microsoft.AspNetCore.Html.HtmlString("~/admin/images/faces/face1.jpg"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);
@@ -343,7 +350,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                     <td>
                                                                         <div class=""d-flex "">
                                                                             ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5926951", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5927164", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -393,7 +400,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                     </td>
                                               ");
             WriteLiteral("                      <td>\n                                                                        <div class=\"d-flex\">\n                                                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5931462", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5931675", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -443,7 +450,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                     </td>
                                                     ");
             WriteLiteral("                <td>\n                                                                        <div class=\"d-flex\">\n                                                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5935967", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5936180", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -493,7 +500,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                     </td>
                                                     ");
             WriteLiteral("                <td>\n                                                                        <div class=\"d-flex\">\n                                                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5940472", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5940685", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -543,7 +550,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                     </td>
                                                         ");
             WriteLiteral("            <td>\n                                                                        <div class=\"d-flex\">\n                                                                            ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5944973", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5945186", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -872,7 +879,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                             <div class=""mt-3"">
                                                                 <div class=""wrapper d-flex align-items-center justify-");
             WriteLiteral("content-between py-2 border-bottom\">\n                                                                    <div class=\"d-flex\">\n                                                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5973034", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5973247", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -900,7 +907,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                 <div class=""wrapper d-flex align-items-center justify-content-between py-2 border-bottom"">
                                     ");
             WriteLiteral("                                <div class=\"d-flex\">\n                                                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5975422", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5975635", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -928,7 +935,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                 <div class=""wrapper d-flex align-items-center justify-content-between py-2 border-bottom"">
                                           ");
             WriteLiteral("                          <div class=\"d-flex\">\n                                                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5977804", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5978017", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -956,7 +963,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                 <div class=""wrapper d-flex align-items-center justify-content-between py-2 border-bottom"">
                                       ");
             WriteLiteral("                              <div class=\"d-flex\">\n                                                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5980190", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5980403", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -984,7 +991,7 @@ using Fiorella_second.Areas.AdminFiorella.ViewModel;
                                                                 <div class=""wrapper d-flex align-items-center justify-content-between pt-2"">
                                                       ");
             WriteLiteral("              <div class=\"d-flex\">\n                                                                        ");
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5982560", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "53c8291d7d8587367d624cca641d993bc2dade5982773", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

@@ -126,15 +126,15 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
         {
             Dictionary<string, string> settings = _service.GetSetting();
             int size = Convert.ToInt32(settings["MaxImageSize"]);
+            int maxCount = Convert.ToInt32(settings["Slider_Max_Count"]);
             var setting = _context.Settings.AsEnumerable().ToDictionary(s => s.Key, s => s.Value);
             int count = 1;
-           
+            int sldCount = _context.Sliders.Count();
             foreach (var photo in photos)
-            {
-                int sldCount = _context.Sliders.Count();
+            {             
                 if (photos.Count>_maxCount-sldCount)
                 {
-                    _errorMessage = $"You can choose a maximum of 5 photo ";
+                    _errorMessage = $"You can choose a maximum of {maxCount} photo ";
                     return false;
                 }
                
