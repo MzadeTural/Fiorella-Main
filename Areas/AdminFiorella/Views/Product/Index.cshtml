@@ -1,0 +1,65 @@
+﻿@model TablesVM
+
+@{
+    ViewData["Title"] = "Product";
+}
+
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Product Table</h4>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+
+                            <th>Profuct Image</th>
+                            <th>Product Name</th>
+                            <th> Price</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var prd in Model.Products)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="d-flex px-2">
+                                        <div>
+                                            <img src="~/img/@prd.Images.Where(i=>i.IsMain==true).FirstOrDefault().ImageUrl" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td>@prd.Title</td>
+                                <td>@prd.Price</td>
+                                @if (prd.IsDeleted == false)
+                                {
+                                    <td><label class="badge badge-success">Exists</label></td>
+                                }
+                                else
+                                {
+                                    <td><label class="badge badge-danger">Deleted</label></td>
+                                }
+                            <td>
+                                <form asp-action="Delete" method="post" class="d-inline">
+                                    <button asp-action="Delete" asp-route-id="@prd.Id" type="submit" class="btn btn-danger me-2"><i class="mdi mdi-trash-can"></i></button>
+                                </form>
+                                <button type="submit" class="btn btn-success me-2"><i class="mdi mdi-content-save-edit"></i></button>
+
+                                <button type="submit" class="btn btn-primary me-2"><i class="mdi mdi-information"></i></button>
+                            </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <a class="btn btn-success" asp-area="AdminFiorella" asp-controller="Product" asp-action="Create">Add Product<i class="mdi mdi-creation"></i></a>
+
+            </div>
+        </div>
+    </div>
+</div>

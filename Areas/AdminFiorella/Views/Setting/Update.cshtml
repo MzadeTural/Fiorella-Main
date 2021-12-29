@@ -1,0 +1,35 @@
+﻿@model Settings
+@{
+    ViewData["Title"] = "Update";
+}
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Change Setting</h4>
+            <form class="forms-sample" method="post">
+                <div class="form-group">
+                    <input asp-for="Key" readonly class="form-control" style=" text-align: center;
+                                                                                background: White;
+                                                                                font-size: 26px;
+                                                                                font-size: 26px;
+                                                                    } ">
+                                                               
+                    <label asp-for="Value">Category Value</label>
+                    @if (Model.Value.Contains(".png") || Model.Value.Contains(".jpeg"))
+                    {
+                        <input asp-for="Value" type="file" class="form-control">
+                    }
+                    else
+                    {
+                        <input asp-for="Value" class="form-control">
+                    }
+                    <span class="text-danger" asp-validation-for="Value"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                <button class="btn btn-light" asp-action="Index">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+

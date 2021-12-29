@@ -1,0 +1,40 @@
+﻿
+
+
+@{
+    ViewData["Title"] = "Basket";
+    int count = 1;
+}
+
+@model List<BasketItemVM>
+
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Price</th>
+            <th scope="col">Selected Count</th>
+            <th scope="col">Stock Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <th scope="row">@count</th>
+            <td>@item.Name</td>
+            <td> <img class="cart-item-image" src="~/img/@item.Image" width="100" height="100"></td>
+            <td>@item.Price</td>
+            <td>@item.Count</td>
+            <td>@item.StockCount</td>
+            B
+
+        </tr>
+            count++;
+        }
+
+
+    </tbody>
+</table>

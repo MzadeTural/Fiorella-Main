@@ -1,0 +1,24 @@
+﻿
+@model IEnumerable<Product>
+<ul class="list-unstyled py-3" id="Basket">
+    <li class="">No products in the cart.</li>
+    @foreach (var item in Model)
+    {  <li>
+           <div class="cart-item cart-column">
+               <a asp-action="Detail" asp-route-id="@item.Id">
+
+                   <img class="cart-item-image" src="~/img/@item.Images.Where(i=>i.IsMain==true).FirstOrDefault().ImageUrl" width="100" height="100">
+
+
+               </a>
+               <span class="cart-item-title">@item.Title</span>
+           </div>
+    <span class="cart-price cart-column">@item.Price$</span>
+    <div class="cart-quantity cart-column">
+        <input class="cart-quantity-input" type="number" value="1">
+        <button class="btn btn-danger" type="button">REMOVE</button>
+    </div>
+   
+</li>
+    }
+</ul>

@@ -1,0 +1,35 @@
+﻿@model MultipleSliderVM
+@{
+    ViewData["Title"] = "Create";
+    int maxCount = Convert.ToInt32(@TempData["MaxCount"]);
+    int dbCount = Convert.ToInt32(@TempData["SldCount"]);
+    int rem = maxCount - dbCount;
+}
+
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Add SLider Image Form</h4>
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <span class="text-warning d-block">Max Image Count: @maxCount</span>
+                <span class="text-warning">Remaining Image: @rem</span>
+
+                <div class="form-group">
+                    <label asp-for="Photos">Choose Image</label>
+                    <input asp-for="Photos" class="form-control" id="FileUpload1">
+                    <span class="text-danger" asp-validation-for="Photos"></span>
+                </div>
+                @if (rem > 0)
+                {
+                    <button type="submit" class="btn btn-primary me-2">Submit</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary me-2" disabled>Submit</button>
+                }
+                <button class="btn btn-light" asp-action="Index">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
+

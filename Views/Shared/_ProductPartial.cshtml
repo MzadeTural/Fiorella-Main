@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Product>
+
+@foreach (var card in Model)
+{
+    <div class="col-sm-6 col-md-4 col-lg-3 mt-3">
+        <div class="product-item text-center" data-id="@card.CategoryId">
+            <div class="img">
+
+                <a asp-action="Detail" asp-route-id="@card.Id">
+
+                    <img src="~/img/@card.Images.Where(i=>i.IsMain==true).FirstOrDefault().ImageUrl" class="img-fluid" alt="">
+
+                </a>
+            </div>
+            <div class="title mt-3">
+
+
+                <h6>@card.Title</h6>
+
+            </div>
+            <div class="price">
+                <form asp-controller="Product" asp-action="AddBasket" asp-route-id="@card.Id" method="post" class="d-inline">
+                    <span class="text-black-50" id="AddBasket">
+                        <button type="submit" style=" border: none; background: none; display: inline;">Add to card</button>
+                    </span>
+                </form>            
+                <span class="text-black-50">@card.Price$</span>
+            </div>
+        </div>
+    </div>
+}
