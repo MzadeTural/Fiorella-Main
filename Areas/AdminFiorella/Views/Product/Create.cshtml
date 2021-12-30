@@ -13,12 +13,16 @@
             </p>
             <form class="forms-sample" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label >Title</label>
+                    <label>Title</label>
                     <input asp-for="Name" class="form-control" id="exampleInputUsername1" placeholder="Title">
                 </div>
                 <div class="form-group">
-                    <label >Image</label>
-                    <input  asp-for="Photos" class="form-control" id="exampleInputEmail1" placeholder="Image">
+                    <label> Main Image</label>
+                    <input asp-for="Photos" class="form-control" id="exampleInputEmail1" placeholder="Image">
+                </div>
+                <div class="form-group">
+                    <label>Image</label>
+                    <input asp-for="Photos" class="form-control" id="exampleInputEmail1" placeholder="Image">
                 </div>
                 <div class="form-group">
                     <label asp-for="Price"></label>
@@ -26,8 +30,7 @@
                 </div>
                 <div class="form-group">
                     <label>Category </label>
-                    <select asp-for="CategoryId" class="data-list-input"asp-items="@ViewBag.Categories" style="width:190px;">
-                   
+                    <select asp-for="CategoryId" class="data-list-input" asp-items="@ViewBag.Categories" style="width:190px;">
                     </select>
                 </div>
                 <div class="form-group">
@@ -35,7 +38,7 @@
                     <input asp-for="Count" class="form-control" id="exampleInputConfirmPassword1" placeholder="Stock Count">
                 </div>
 
-                <button  type="submit" class="btn btn-primary me-2">Submit</button>
+                <button type="submit" class="btn btn-primary me-2">Submit</button>
                 <button class="btn btn-light">Cancel</button>
             </form>
         </div>

@@ -50,7 +50,7 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
                                    .Include(c => c.Images)
                                    .ToListAsync();
             var productsVM = getProductList(products);
-            int pageCount = getPageCount(takeCount);
+            int pageCount = getPageCount(takeCount); 
             Paginate<ProductListVM> model = new Paginate<ProductListVM>(productsVM,page, pageCount);
            // return Json(model);
             return View(model);
@@ -131,18 +131,14 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
 
                 string fileName = await photo.SaveFileAysnc(_env.WebRootPath, "img");
                 ProductImage productImage = new ProductImage()
-                {                   
-                  ProductId=product.Id,
+                {
+                 
+                  ProductId =product.Id,
                    ImageUrl =fileName
-
-                };
-               
+                };               
                 await _context.Images.AddAsync(productImage);
-
             }
-           
-           
-          
+                    
             await _context.SaveChangesAsync();
           
             return RedirectToAction(nameof(Create));
