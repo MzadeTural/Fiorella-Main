@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tural\\Desktop\\Fiorella-Basket-main\\Fiorella second.csproj": {}
+    "C:\\Users\\Tural\\Desktop\\Programing\\AspNet\\Fiorella-Basket-main\\Fiorella second.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tural\\Desktop\\Fiorella-Basket-main\\Fiorella second.csproj": {
+    "C:\\Users\\Tural\\Desktop\\Programing\\AspNet\\Fiorella-Basket-main\\Fiorella second.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tural\\Desktop\\Fiorella-Basket-main\\Fiorella second.csproj",
+        "projectUniqueName": "C:\\Users\\Tural\\Desktop\\Programing\\AspNet\\Fiorella-Basket-main\\Fiorella second.csproj",
         "projectName": "Fiorella second",
-        "projectPath": "C:\\Users\\Tural\\Desktop\\Fiorella-Basket-main\\Fiorella second.csproj",
+        "projectPath": "C:\\Users\\Tural\\Desktop\\Programing\\AspNet\\Fiorella-Basket-main\\Fiorella second.csproj",
         "packagesPath": "C:\\Users\\Tural\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tural\\Desktop\\Fiorella-Basket-main\\obj\\",
+        "outputPath": "C:\\Users\\Tural\\Desktop\\Programing\\AspNet\\Fiorella-Basket-main\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Tural\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,18 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.AspNet.Identity.Core": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.22, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.22, )"
@@ -57,6 +69,14 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
+            },
+            "NETCore.MailKit": {
+              "target": "Package",
+              "version": "[2.0.3, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.25.1, )"
             }
           },
           "imports": [

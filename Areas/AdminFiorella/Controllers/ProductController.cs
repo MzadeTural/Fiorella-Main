@@ -91,6 +91,7 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.Categories = new SelectList(await _context.Categories.Where(c => c.IsDeleted == false).ToListAsync(),"Id","Name");
+           
             return View();
         }
 
@@ -107,9 +108,16 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
                 ModelState.AddModelError("Name", "This Product already exist");
                 return RedirectToAction(nameof(Index));
             }
+            if (ModelState["Photos"].ValidationState == ModelValidationState.Invalid) return View();
+
+            if (!CheckImageValid(productCreateVM.Photos))
+            {
+                ModelState.AddModelError("Photos", _errorMessage);
+                return View();
+            }
             Product product = new Product
             {
-                
+              Images=await GetImagesUrlAsync(productCreateVM),
                 StockCount = productCreateVM.Count,
                 Price = productCreateVM.Price,
                 CategoryId = productCreateVM.CategoryId,
@@ -118,31 +126,30 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
             };
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
-            if (ModelState["Photos"].ValidationState == ModelValidationState.Invalid) return View();
-
-
-            if (!CheckImageValid(productCreateVM.Photos))
-            {
-                ModelState.AddModelError("Photos", _errorMessage);
-                return View();
-            }
-            foreach (var photo in productCreateVM.Photos)
-            {
-
-                string fileName = await photo.SaveFileAysnc(_env.WebRootPath, "img");
-                ProductImage productImage = new ProductImage()
-                {
-                 
-                  ProductId =product.Id,
-                   ImageUrl =fileName
-                };               
-                await _context.Images.AddAsync(productImage);
-            }
-                    
-            await _context.SaveChangesAsync();
           
             return RedirectToAction(nameof(Create));
 
+        }
+        private async Task<List<ProductImage>> GetImagesUrlAsync(ProductCreateVM productCreateVM)
+        {
+            List<ProductImage> productImagesList = new List<ProductImage>();
+           
+          
+            for (int i = 0; i < productCreateVM.Photos.Count(); i++)
+            { 
+                string fileName = await productCreateVM.Photos[i].SaveFileAysnc(_env.WebRootPath, "img");
+                ProductImage productImage = new ProductImage()
+                {
+                   
+                    ImageUrl = fileName
+                };
+                if (i==0)
+                {
+                    productImage.IsMain = true;
+                }
+                productImagesList.Add(productImage);
+            }
+            return productImagesList;
         }
 
         private bool CheckImageValid(List<IFormFile> photos)

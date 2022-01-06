@@ -109,7 +109,7 @@ namespace Fiorella_second.Areas.AdminFiorella.Controllers
             foreach (var photo in sliderVM.Photos)
             {
                
-                string fileName = await photo.SaveFileAysnc(_env.WebRootPath, "img");
+                  string fileName = await photo.SaveFileAysnc(_env.WebRootPath, "img");
                 Slider slider = new Slider()
                 {
                     ImgUrl = fileName

@@ -2,7 +2,7 @@
 
 @{ ViewData["Title"] = "Product";
     int take = Convert.ToInt32(TempData["Take"]);
-    int count = ((Model.CurrentPage-1)* take) +1;
+    int count = ((Model.CurrentPage-1)* take)+1 ;
     }
 
 
