@@ -56,12 +56,8 @@ namespace Fiorella_second
                 options.UseSqlServer(Configuration["ConnectionStrings:Default"]);
                 });
             services.AddScoped<LayoutServices>();
-            var mailKitOptions = Configuration.GetSection("Email").Get<MailKitOptions>();
-            services.AddMailKit(config=>
-            {
-                var options = new MailKitOptions();
-                config.UseMailKit(mailKitOptions);
-            });
+         
+            services.AddMailKit(config=>config.UseMailKit(Configuration.GetSection("Email").Get<MailKitOptions>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using Fiorella_second.Models;
+﻿using Fiorella_second.DAL;
+using Fiorella_second.Models;
 using Fiorella_second.ViewModel.Auth;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Fiorella_second.Utilities.File.Helper;
 
 namespace Fiorella_second.Controllers
 {
@@ -23,17 +25,18 @@ namespace Fiorella_second.Controllers
 
         // private readonly IMapper _mapper;
         public IEmailService _emailService { get; set; }
-       
+        public AppDbContext _context { get; }
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;
-      
+        public RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IEmailService emailService)
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IEmailService emailService, RoleManager<IdentityRole> roleManager, AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-         
-            _emailService = emailService;
+            _roleManager = roleManager;
+             _emailService = emailService;
+            _context = context;
         }
         // GET: AuthController1
         public IActionResult Register()
@@ -64,20 +67,20 @@ namespace Fiorella_second.Controllers
             }
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
           
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Auth", new { token, userId = newUser.Id }, Request.Scheme);
-            return Json(confirmationLink);
-             //var message = new Message(new string[] { newUser.Email }, "Confirmation email link", confirmationLink, null);
-            await _emailService.SendAsync( newUser.Email , "email verify",confirmationLink);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Auth", new { userId = newUser.Id , token },Request.Scheme,Request.Host.ToString());
+            //return Json(confirmationLink);
+            
+            await _emailService.SendAsync("tural.memmedzade04@gmail.com", "email verify", confirmationLink);
 
-            await _userManager.AddToRoleAsync(newUser, "Visitor");
-
+           await _userManager.AddToRoleAsync(newUser,UserRoles.Admin.ToString());
+             
             return RedirectToAction(nameof(SuccessRegistration));
            
 
 
             }
        
-            [HttpGet]
+           
         public async Task<IActionResult> ConfirmEmail(string token, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
@@ -85,6 +88,13 @@ namespace Fiorella_second.Controllers
                 return View("Error");
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
+          
+            if (result.Succeeded)
+            {
+                user.IsActivated = true;
+                await _context.SaveChangesAsync();
+                return View();
+            }
             return View(result.Succeeded ? nameof(ConfirmEmail) : "Error");
         }
 
@@ -94,6 +104,78 @@ namespace Fiorella_second.Controllers
             return View();
         }
 
+        
+        public IActionResult Login(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(UserLoginVM userModel, string returnUrl )
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userModel);
+            }
+            ApplicationUser user = await _userManager.FindByEmailAsync(userModel.Email);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "Email or Pasword is wrong");
+                return View(userModel);
+            }
+            if (!user.IsActivated)
+            {
+                ModelState.AddModelError(string.Empty, "Please,Active your account.Check your Email");
+                return View(userModel);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(user, userModel.Password, userModel.RememberMe, true);
+            
+            if (result.IsLockedOut)
+            {
+                ModelState.AddModelError(string.Empty, "Please,Wait a few moment");
+                return View(userModel);
+            }
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty, "Email or Pasword is wrong");
+                return View(userModel);              
+            }
+            if (returnUrl!=null)
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
+          
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+        #region CreateROle
+        public async Task CreateRole()
+        {
+            foreach (var role in Enum.GetValues(typeof(UserRoles)))
+            {
+                if (!await _roleManager.RoleExistsAsync(role.ToString()))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
+                }
+            }
+        }
+        #endregion
         // GET: AuthController1/Details/5
         public ActionResult Details(int id)
         {

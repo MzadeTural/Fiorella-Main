@@ -513,11 +513,10 @@ C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcorea
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\Register.cshtml.g.cs
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Areas\AdminFiorella\Views\Shared\_ValidationPartial.cshtml.g.cs
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\MailKit.dll
-C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\Microsoft.AspNet.Identity.Core.dll
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
-C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\SendGrid.dll
-C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\bin\Debug\netcoreapp3.1\StarkbankEcdsa.dll
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ConfirmEmail.cshtml.g.cs
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\SuccessRegistration.cshtml.g.cs
+C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\Login.cshtml.g.cs
+C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Areas\AdminFiorella\Views\User\Index.cshtml.g.cs

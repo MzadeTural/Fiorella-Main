@@ -14,5 +14,13 @@ namespace Fiorella_second.Utilities.File
                 System.IO.File.Delete(path);
             }
         }
+        public enum UserRoles
+        {
+            SuperAdmin,
+            Admin,
+            Member,
+            Moderator
+
+        }
     }
 }
