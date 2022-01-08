@@ -10,6 +10,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using static Fiorella_second.Utilities.File.Helper;
 
@@ -30,12 +31,12 @@ namespace Fiorella_second.Controllers
         private SignInManager<ApplicationUser> _signInManager;
         public RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,IEmailService emailService, RoleManager<IdentityRole> roleManager, AppDbContext context)
+        public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IEmailService emailService, RoleManager<IdentityRole> roleManager, AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-             _emailService = emailService;
+            _emailService = emailService;
             _context = context;
         }
         // GET: AuthController1
@@ -55,6 +56,7 @@ namespace Fiorella_second.Controllers
                 Email = register.Email,
                 UserName = register.UserName,
 
+
             };
             IdentityResult identityResult = await _userManager.CreateAsync(newUser, register.Pasword);
             if (!identityResult.Succeeded)
@@ -66,34 +68,52 @@ namespace Fiorella_second.Controllers
                 return View(register);
             }
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
-          
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Auth", new { userId = newUser.Id , token },Request.Scheme,Request.Host.ToString());
-            //return Json(confirmationLink);
-            
-            await _emailService.SendAsync("tural.memmedzade04@gmail.com", "email verify", confirmationLink);
 
-           await _userManager.AddToRoleAsync(newUser,UserRoles.Admin.ToString());
-             
-            return RedirectToAction(nameof(SuccessRegistration));
-           
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "Auth", new { userId = newUser.Id, token }, Request.Scheme, Request.Host.ToString());
 
+            using (var client = new SmtpClient("smtp.googlemail.com", 587))
+            {
+                client.Credentials =
+                    new System.Net.NetworkCredential("tural.memmedzade025@gmail.com", "tural2025");
+                client.EnableSsl = true;
+                var msg = new MailMessage("tural.memmedzade025@gmail.com", newUser.Email);
+                msg.Body = confirmationLink;
+                msg.Subject = "Email Veryfication";
 
+                client.Send(msg);
             }
-       
-           
+            //  await _emailService.SendAsync(register.Email, "email verify", confirmationLink);
+
+            await _userManager.AddToRoleAsync(newUser, UserRoles.Admin.ToString());
+
+            return RedirectToAction(nameof(SuccessRegistration));
+
+
+
+        }
+
+
         public async Task<IActionResult> ConfirmEmail(string token, string userId)
         {
+
             var user = await _userManager.FindByIdAsync(userId);
+
             if (user == null)
                 return View("Error");
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
-          
+            ViewBag["Email"] = user.Email;
+            var users = _userManager.Users.Select(c => new ViewModel.UserListVM()
+            {
+
+                Email = c.Email,
+
+            }).ToList();
             if (result.Succeeded)
             {
                 user.IsActivated = true;
                 await _context.SaveChangesAsync();
-                return View();
+                return View(users);
             }
             return View(result.Succeeded ? nameof(ConfirmEmail) : "Error");
         }
@@ -104,7 +124,7 @@ namespace Fiorella_second.Controllers
             return View();
         }
 
-        
+
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -113,7 +133,7 @@ namespace Fiorella_second.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(UserLoginVM userModel, string returnUrl )
+        public async Task<IActionResult> Login(UserLoginVM userModel, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -132,7 +152,7 @@ namespace Fiorella_second.Controllers
             }
 
             var result = await _signInManager.PasswordSignInAsync(user, userModel.Password, userModel.RememberMe, true);
-            
+
             if (result.IsLockedOut)
             {
                 ModelState.AddModelError(string.Empty, "Please,Wait a few moment");
@@ -142,14 +162,14 @@ namespace Fiorella_second.Controllers
             if (!result.Succeeded)
             {
                 ModelState.AddModelError(string.Empty, "Email or Pasword is wrong");
-                return View(userModel);              
+                return View(userModel);
             }
-            if (returnUrl!=null)
+            if (returnUrl != null)
             {
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
-          
+
         }
         public async Task<IActionResult> Logout()
         {
@@ -157,25 +177,88 @@ namespace Fiorella_second.Controllers
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-                return Redirect(returnUrl);
-            else
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
+
         #region CreateROle
-        public async Task CreateRole()
-        {
-            foreach (var role in Enum.GetValues(typeof(UserRoles)))
-            {
-                if (!await _roleManager.RoleExistsAsync(role.ToString()))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
-                }
-            }
-        }
+        //public async Task CreateRole()
+        //{
+        //    foreach (var role in Enum.GetValues(typeof(UserRoles)))
+        //    {
+        //        if (!await _roleManager.RoleExistsAsync(role.ToString()))
+        //        {
+        //            await _roleManager.CreateAsync(new IdentityRole { Name = role.ToString() });
+        //        }
+        //    }
+        //}
         #endregion
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordVM { Token = token, Email = email };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordModel)
+         {
+            if (!ModelState.IsValid)
+                return View(resetPasswordModel);
+
+            var user = await _userManager.FindByEmailAsync(resetPasswordModel.Email);
+            if (user == null)
+                return Content("NULL");
+
+            var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                
+                foreach (var error in resetPassResult.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(resetPasswordModel);
+            }
+           
+            return RedirectToAction(nameof(ResetPasswordConfirmation));
+        }
+
+        [HttpGet]
+        public IActionResult ResetPasswordConfirmation()
+        {
+            return View();
+        }
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPassword)
+         {
+            if (!ModelState.IsValid) return View(forgotPassword);
+
+           // var user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+            ApplicationUser user = await _userManager.FindByEmailAsync(forgotPassword.Email);
+            if (user == null) return Content("NULL"); 
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+           var confirmationLink = Url.Action(nameof(ResetPassword), "Auth", new { token, email = user.Email }, Request.Scheme);
+            using (var client = new SmtpClient("smtp.googlemail.com", 587))
+            {
+                client.Credentials =
+                    new System.Net.NetworkCredential("tural.memmedzade025@gmail.com", "tural2025");
+                client.EnableSsl = true;
+                var msg = new MailMessage("tural.memmedzade025@gmail.com", user.Email);
+                msg.Body = confirmationLink;
+                msg.Subject = "Reset Password";
+
+                client.Send(msg);
+            }
+
+            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+           
+        }
+            public IActionResult ForgotPasswordConfirmation()
+                {
+                    return View();
+                }
         // GET: AuthController1/Details/5
         public ActionResult Details(int id)
         {

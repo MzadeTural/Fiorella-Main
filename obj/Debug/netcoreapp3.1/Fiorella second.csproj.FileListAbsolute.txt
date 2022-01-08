@@ -520,3 +520,7 @@ C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcorea
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\SuccessRegistration.cshtml.g.cs
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\Login.cshtml.g.cs
 C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Areas\AdminFiorella\Views\User\Index.cshtml.g.cs
+C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ResetPassword.cshtml.g.cs
+C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ForgotPassword.cshtml.g.cs
+C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ForgotPasswordConfirmation.cshtml.g.cs
+C:\Users\Tural\Desktop\Programing\AspNet\Fiorella-Basket-main\obj\Debug\netcoreapp3.1\Razor\Views\Auth\ResetPasswordConfirmation.cshtml.g.cs

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<UserListVM>
+﻿@model IEnumerable<UserVM>
+
 @{ ViewData["Title"] = "Role";
     int userNum = 1; 
     }
@@ -25,6 +26,9 @@
                                 Full name
                             </th>
                             <th>
+                                Email
+                            </th>
+                            <th>
                                 Role
                             </th>
 
@@ -33,21 +37,24 @@
                     <tbody>
                         @foreach (var user in Model)
                         {
-            <tr>
-                <td class="py-1">
-                    <img src="~/admin/images/faces/face1.jpg" alt="image" />
-                </td>
-                <td>
-                    @user.UserName
-                </td>
-                <td>
-                    @user.FullName
-                </td>
-                <td>
-                    @user.RoleName
-                </td>
+                        <tr>
+                            <td class="py-1">
+                                <img src="~/admin/images/faces/face1.jpg" alt="image" />
+                            </td>
+                            <td>
+                                @user.Username
+                            </td>
+                            <td>
+                                @user.FullName
+                            </td>
+                            <td>
+                                @user.Email
+                            </td>
+                            <td>
+                                @user.RoleName
+                            </td>
 
-            </tr>}
+                        </tr>}
 
 
                     </tbody>
