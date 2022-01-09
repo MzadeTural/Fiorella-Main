@@ -1,6 +1,7 @@
 ﻿using Fiorella_second.DAL;
 using Fiorella_second.Models;
 using Fiorella_second.ViewModel.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,11 +17,8 @@ using static Fiorella_second.Utilities.File.Helper;
 
 namespace Fiorella_second.Controllers
 {
-    public interface IEmailSender
-    {
-        void SendEmail(Models.Message message);
-       // Task SendEmailAsync(Message message);
-    }
+    
+    //[Authorize(Roles = "SuperAdmin")]
     public class AuthController : Controller
     {
 
@@ -40,12 +38,15 @@ namespace Fiorella_second.Controllers
             _context = context;
         }
         // GET: AuthController1
+        [AllowAnonymous]
         public IActionResult Register()
         {
+            IsAuthenticated();
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterVM register)
         {
             if (!ModelState.IsValid) return View(register);
@@ -71,18 +72,21 @@ namespace Fiorella_second.Controllers
 
             var confirmationLink = Url.Action(nameof(ConfirmEmail), "Auth", new { userId = newUser.Id, token }, Request.Scheme, Request.Host.ToString());
 
-            using (var client = new SmtpClient("smtp.googlemail.com", 587))
-            {
-                client.Credentials =
-                    new System.Net.NetworkCredential("tural.memmedzade025@gmail.com", "tural2025");
-                client.EnableSsl = true;
-                var msg = new MailMessage("tural.memmedzade025@gmail.com", newUser.Email);
-                msg.Body = confirmationLink;
-                msg.Subject = "Email Veryfication";
+            Email.SendEmail("tural.memmedzade025@gmail.com", newUser.Email, confirmationLink, "tural2025", "Reset Password");
+            #region
+            //using (var client = new SmtpClient("smtp.googlemail.com", 587))
+            //{
+            //    client.Credentials =
+            //        new System.Net.NetworkCredential("tural.memmedzade025@gmail.com", "tural2025");
+            //    client.EnableSsl = true;
+            //    var msg = new MailMessage("tural.memmedzade025@gmail.com", newUser.Email);
+            //    msg.Body = confirmationLink;
+            //    msg.Subject = "Email Veryfication";
 
-                client.Send(msg);
-            }
+            //    client.Send(msg);
+            //}
             //  await _emailService.SendAsync(register.Email, "email verify", confirmationLink);
+            #endregion
 
             await _userManager.AddToRoleAsync(newUser, UserRoles.Admin.ToString());
 
@@ -92,7 +96,7 @@ namespace Fiorella_second.Controllers
 
         }
 
-
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string token, string userId)
         {
 
@@ -118,21 +122,23 @@ namespace Fiorella_second.Controllers
             return View(result.Succeeded ? nameof(ConfirmEmail) : "Error");
         }
 
-        [HttpGet]
+        [AllowAnonymous]
         public IActionResult SuccessRegistration()
         {
             return View();
         }
 
-
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            IsAuthenticated();
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginVM userModel, string returnUrl)
         {
             if (!ModelState.IsValid)
@@ -190,6 +196,7 @@ namespace Fiorella_second.Controllers
         //    }
         //}
         #endregion
+        [AllowAnonymous]
         public IActionResult ResetPassword(string token, string email)
         {
             var model = new ResetPasswordVM { Token = token, Email = email };
@@ -207,6 +214,7 @@ namespace Fiorella_second.Controllers
                 return Content("NULL");
 
             var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
+
             if (!resetPassResult.Succeeded)
             {
                 
@@ -225,12 +233,14 @@ namespace Fiorella_second.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> ForgotPassword(ForgotPasswordVM forgotPassword)
          {
             if (!ModelState.IsValid) return View(forgotPassword);
@@ -240,17 +250,8 @@ namespace Fiorella_second.Controllers
             if (user == null) return Content("NULL"); 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
            var confirmationLink = Url.Action(nameof(ResetPassword), "Auth", new { token, email = user.Email }, Request.Scheme);
-            using (var client = new SmtpClient("smtp.googlemail.com", 587))
-            {
-                client.Credentials =
-                    new System.Net.NetworkCredential("tural.memmedzade025@gmail.com", "tural2025");
-                client.EnableSsl = true;
-                var msg = new MailMessage("tural.memmedzade025@gmail.com", user.Email);
-                msg.Body = confirmationLink;
-                msg.Subject = "Reset Password";
 
-                client.Send(msg);
-            }
+            Email.SendEmail("tural.memmedzade025@gmail.com", user.Email, confirmationLink, "tural2025", "Reset Password");
 
             return RedirectToAction(nameof(ForgotPasswordConfirmation));
            
@@ -259,58 +260,134 @@ namespace Fiorella_second.Controllers
                 {
                     return View();
                 }
-        // GET: AuthController1/Details/5
-        public ActionResult Details(int id)
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM changePassword)
+        {
+            if (!ModelState.IsValid) return View(changePassword);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null) return Content("NULL");
+           
+            var changetPassResult = await _userManager.ChangePasswordAsync(user,changePassword.CurrentPassword,changePassword.NewPassword);
+            if (!changetPassResult.Succeeded)
+            {
+
+                foreach (var error in changetPassResult.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(changePassword);
+            }
+
+            return RedirectToAction(nameof(Login));
+        }
+            // GET: AuthController1/Details/5
+            public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: AuthController1/Create
-        public ActionResult Create()
+        public IActionResult ChangeUserName()
         {
+
             return View();
         }
 
         // POST: AuthController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> ChangeUserName(ChangeUserNameVM userNameVM)
         {
-            try
+            if (!ModelState.IsValid) return View(userNameVM);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError(string.Empty, "User is Not Found");
+                return View(userNameVM);
             }
-            catch
+
+            var changeUserName = await _userManager.SetUserNameAsync(user, userNameVM.UserName);
+            if (!changeUserName.Succeeded)
             {
-                return View();
+
+                foreach (var error in changeUserName.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View(userNameVM);
             }
+            await _signInManager.RefreshSignInAsync(user);
+            return RedirectToAction(nameof(Profile));
         }
 
         // GET: AuthController1/Edit/5
-        public ActionResult Edit(int id)
+
+        public async Task<IActionResult> Profile(string email)
+        {
+            
+            ApplicationUser userI = await  _userManager.GetUserAsync(User);
+            var user = _userManager.Users.Where(u=>u.Email==userI.Email).Select(c => new UserProfileVM
+            {
+                Username = c.UserName,
+                Email = c.Email,
+                FullName = c.FullName,
+               
+            }).FirstOrDefault();
+            return View(user);
+        }
+
+        public IActionResult ChangeEmail(int id)
         {
             return View();
         }
-
         // POST: AuthController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> ChangeEmail(ChangeMailVM changeMail)
         {
-            try
+            if (!ModelState.IsValid) return View(changeMail);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user == null) return Content("NULL");
+            var token = _userManager.GenerateChangeEmailTokenAsync(user,changeMail.NewEmail);
+
+            var changetPassResult = await _userManager.ChangeEmailAsync(user, changeMail.NewEmail,token.ToString());
+          
+            if (changetPassResult.Succeeded)
             {
-                return RedirectToAction(nameof(Index));
+                Email.SendEmail("tural.memmedzade025@gmail.com", user.Email, "Your Mail Is Changed", "tural2025", "Fiorello-Change Mail");
+              
+                return View(nameof(Profile));
             }
-            catch
+            else
             {
-                return View();
+                foreach (var error in changetPassResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+                return View(nameof(ChangeEmail));
             }
+
         }
 
         // GET: AuthController1/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
+        }
+        private void IsAuthenticated()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                throw new Exception("You already authenticated!");
+               
+
+            }
+              
         }
 
         // POST: AuthController1/Delete/5

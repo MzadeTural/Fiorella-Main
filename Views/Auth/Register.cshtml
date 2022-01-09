@@ -9,6 +9,8 @@
 <html lang="en">
 
 <head>
+
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -27,6 +29,16 @@
     <link rel="stylesheet" href="~/admin/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="~/admin/images/favicon.png" />
+    <style>
+        .content-wrapper {
+            background: -webkit-linear-gradient(left, #3931af, #00c6ff);
+        }
+
+        .auth .auth-form-light {
+            background: #ffffff;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -37,7 +49,7 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
-                                <img src="~/admin/images/logo.svg" alt="logo">
+                                <img src="~/img/logo.png" alt="" id="logo" style="width:50%">
                             </div>
                             <h4>Hello! let's get started</h4>
                             <h6 class="fw-light">Register and join we.</h6>
@@ -68,17 +80,13 @@
                                 <div class="my-2 d-flex justify-content-between align-items-center">
                                     <div class="form-check">
                                         <label class="form-check-label text-muted">
-                                            <input type="checkbox" class="form-check-input">
+                                            <input type="checkbox" class="form-check-input" >
                                             Keep me signed in
                                         </label>
                                     </div>
                                   
                                 </div>
-                                <div class="mb-2">
-                                    <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-                                        <i class="ti-facebook me-2"></i>Register with facebook
-                                    </button>
-                                </div>
+                               
                                
                             </form>
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

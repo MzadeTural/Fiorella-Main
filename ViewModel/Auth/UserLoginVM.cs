@@ -10,7 +10,7 @@ namespace Fiorella_second.ViewModel.Auth
     {
         [Required]
         [EmailAddress]
-        [DataType(DataType.Password)]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]

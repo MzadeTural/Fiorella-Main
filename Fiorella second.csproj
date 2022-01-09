@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Fiorella_second</RootNamespace>
+    <UserSecretsId>baaa09e8-ae27-49bb-b180-27a85385a380</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

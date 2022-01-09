@@ -8,6 +8,7 @@
 <html lang="en">
 
 <head>
+  
     <!-- Required meta tags -->
     <meta charset="utf-8">
     
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="~/admin/vendors/typicons/typicons.css">
     <link rel="stylesheet" href="~/admin/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="~/admin/vendors/css/vendor.bundle.base.css">
+    <link />
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link rel="stylesheet" href="~/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
@@ -52,10 +54,14 @@
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-top">
                 <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
                     <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                        <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">Mzade Tural</span></h1>
+                        
+                        <h1 class="welcome-text">Welcome, <span class="text-black fw-bold">@User.Identity.Name</span></h1>
                         <h3 class="welcome-sub-text">Your performance summary this week </h3>
                     </li>
+                    }
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown d-none d-lg-block">

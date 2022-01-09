@@ -10,6 +10,7 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -106,31 +107,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Portfolio</a>
-                                    <ul class="list-unstyled py-3">
-                                        <li class=""><a class="px-1" href="">Portfolio 1</a></li>
-                                        <li class=""><a class="px-1" href="">Portfolio 2</a></li>
-                                        <li class="">
-                                            <a class="px-1 mr-5" href="">Portfolio 3</a>
-                                            <i class="fas fa-chevron-right fa-sm"></i>
-                                            <ul class="list-unstyled py-3">
-                                                <li class=""><a class="px-3" href="">Shop Layouts 1</a></li>
-                                                <li class=""><a class="px-3" href="">Shop Layouts 2</a></li>
-                                                <li class=""><a class="px-3" href="">Shop Layouts 3</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                <a class="px-3" asp-action="Logout" asp-controller="Auth">LogOut</a> }
-                                            else
-                                            {
-                                                <a class="px-3" >Blog</a>
-                                            }
-                                </li>
+                               
+
 
                                 <li class="nav-item my-auto search">
                                     <i class="fas fa-search" id="search"></i>
@@ -150,21 +128,33 @@
                                         <li class="">No products in the cart</li>
                                     </ul>
                                 </li>
-                                <li class="nav-item my-auto">
 
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                            <h4>@User.Identity.Name</h4>
-                            }
-                                        else
-                                        {
-                            <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path.Value">Log in</a>
-                            }
-                                </li>
-                                
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                            <li class="nav-item my-auto">
+                                <h4  class="py-1" style="background: #f34f3f; color: cyan; border-radius: 10px">@User.Identity.Name</h4>
+
+                            </li>
+                            <li class="nav-item my-auto">
+                                @*<a asp-area="AdminFiorella" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-user-cog"></i></a>*@
+                                <a  asp-controller="Auth" asp-action="Profile"><i class="fas fa-user-cog"></i></a>
+                                <a class="class= px-2" nav-link" asp-action="Logout" asp-controller="Auth">LogOut</a>
+                            </li>
+                                                            <li class="nav-item my-auto">
+                                                               
+                                                            </li> }
+                                                                        else
+                                                                        {
+                                                            <li class="nav-item my-auto">
+                                                                <a asp-controller="Auth" asp-action="Login" asp-route-returnUrl="@Context.Request.Path.Value">Log in</a>
+
+                                                            </li>}
+
+
 
                             </ul>
-                            <a asp-area="AdminFiorella" asp-controller="Dashboard" asp-action="Index"><i class="fas fa-user-cog"></i></a>
+                            
                         </div>
 
                     </nav>

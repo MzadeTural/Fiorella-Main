@@ -1,6 +1,6 @@
 ﻿namespace Fiorella_second.ViewModel
 {
-    internal class UserListVM
+    public class UserListVM
     {
       
 
