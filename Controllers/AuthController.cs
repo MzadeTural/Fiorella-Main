@@ -72,7 +72,7 @@ namespace Fiorella_second.Controllers
 
             var confirmationLink = Url.Action(nameof(ConfirmEmail), "Auth", new { userId = newUser.Id, token }, Request.Scheme, Request.Host.ToString());
 
-            Email.SendEmail("tural.memmedzade025@gmail.com", newUser.Email, confirmationLink, "tural2025", "Reset Password");
+            Email.SendEmail("tural.memmedzade025@gmail.com", newUser.Email, confirmationLink, "tural2025", "Email Confirmation");
             #region
             //using (var client = new SmtpClient("smtp.googlemail.com", 587))
             //{
@@ -106,7 +106,7 @@ namespace Fiorella_second.Controllers
                 return View("Error");
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
-            ViewBag["Email"] = user.Email;
+          
             var users = _userManager.Users.Select(c => new ViewModel.UserListVM()
             {
 
@@ -353,9 +353,11 @@ namespace Fiorella_second.Controllers
             if (!ModelState.IsValid) return View(changeMail);
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user == null) return Content("NULL");
-            var token = _userManager.GenerateChangeEmailTokenAsync(user,changeMail.NewEmail);
+            var token = await _userManager.GenerateChangeEmailTokenAsync(user, changeMail.NewEmail);
+            
 
-            var changetPassResult = await _userManager.ChangeEmailAsync(user, changeMail.NewEmail,token.ToString());
+            var changetPassResult = await _userManager.ChangeEmailAsync(user, changeMail.NewEmail,token);
+
           
             if (changetPassResult.Succeeded)
             {
