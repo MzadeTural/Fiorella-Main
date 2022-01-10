@@ -8,10 +8,10 @@
 <html lang="en">
 
 <head>
-  
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- plugins:css -->
     <link rel="stylesheet" href="~/admin/vendors/feather/feather.css">
@@ -29,7 +29,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="~/admin/css/vertical-layout-light/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="~/admin/images/favicon.png" />
+    <link rel="icon" href="~/img/favicon.png" sizes="192x192" />
 </head>
 <body>
     <div class="container-scroller">
@@ -45,10 +45,10 @@
                 </div>
                 <div>
                     <a class="navbar-brand brand-logo" href="index.html">
-                        <img src="~/admin/images/logo.svg" alt="logo">
+                        <img src="~/img/logo.png" alt="logo" id="logo" >
                     </a>
                     <a class="navbar-brand brand-logo-mini" href="index.html">
-                        <img src="~/admin/images/logo-mini.svg" alt="logo">
+                        <img src="~/img//Flogo.jpg" alt="logo">
                     </a>
                 </div>
             </div>
@@ -56,12 +56,11 @@
                 <ul class="navbar-nav">
                     @if (User.Identity.IsAuthenticated)
                     {
-                    <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
-                        
-                        <h1 class="welcome-text">Welcome, <span class="text-black fw-bold">@User.Identity.Name</span></h1>
-                        <h3 class="welcome-sub-text">Your performance summary this week </h3>
-                    </li>
-                    }
+        <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
+
+            <h1 class="welcome-text">Welcome, <span class="text-black fw-bold">@User.Identity.Name</span></h1>
+            <h3 class="welcome-sub-text">Your performance summary this week </h3>
+        </li>}
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown d-none d-lg-block">
@@ -296,7 +295,7 @@
                         </a>
                         <div class="collapse" id="auth">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link"  asp-controller="Auth" asp-action="Register"> Login </a></li>
+                                <li class="nav-item"> <a class="nav-link" asp-controller="Auth" asp-action="Register"> Login </a></li>
                             </ul>
                         </div>
                     </li>
@@ -340,7 +339,7 @@
         <script src="~/admin/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="~/admin/vendors/progressbar.js/progressbar.min.js"></script>
         <script src="~/Scripts/jquery-1.11.3.min.js"></script>
-
+        <script src="https://kit.fontawesome.com/7c8b79bb9f.js" crossorigin="anonymous"></script>
         <script src="~/Scripts/jquery.validate.min.js"></script>
         <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 

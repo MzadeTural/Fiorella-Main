@@ -17,8 +17,8 @@ using static Fiorella_second.Utilities.File.Helper;
 
 namespace Fiorella_second.Controllers
 {
-    
-    //[Authorize(Roles = "SuperAdmin")]
+
+    [Authorize(Roles = "SuperAdmin,Admin")]
     public class AuthController : Controller
     {
 
@@ -88,7 +88,7 @@ namespace Fiorella_second.Controllers
             //  await _emailService.SendAsync(register.Email, "email verify", confirmationLink);
             #endregion
 
-            await _userManager.AddToRoleAsync(newUser, UserRoles.Admin.ToString());
+            await _userManager.AddToRoleAsync(newUser, UserRoles.Member.ToString());
 
             return RedirectToAction(nameof(SuccessRegistration));
 
